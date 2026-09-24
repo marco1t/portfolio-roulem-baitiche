@@ -5,6 +5,10 @@ const navigation = document.querySelector('#navigation');
 const menu = document.querySelector('#menu');
 const languageButton = document.querySelector('#language');
 const dialog = document.querySelector('#project-dialog');
+const cvDialog = document.querySelector('#cv-dialog');
+const cvOpen = document.querySelector('#cv-open');
+const cvPreviewImage = document.querySelector('#cv-preview-image');
+const cvFullscreen = document.querySelector('#cv-fullscreen');
 const navLinks = [...document.querySelectorAll('.nav-link')];
 const sections = [...document.querySelectorAll('main section[data-label]')];
 const translatedNodes = [...document.querySelectorAll('[data-en]')];
@@ -112,7 +116,7 @@ function renderScroll() {
   }
   if (progress > .99) current = sections.at(-1);
   const currentLabel = language === 'fr' ? current.dataset.label : current.dataset.labelEn;
-  document.querySelector('#compact-label').textContent = current.id === 'accueil' ? 'Roulem' : currentLabel;
+  document.querySelector('#compact-label').textContent = currentLabel;
   const parentSection = { competences: 'projets' };
   const activeId = parentSection[current.id] || current.id;
   navLinks.forEach(link => {
@@ -137,6 +141,20 @@ addEventListener('load', requestRender);
 reducedMotion.addEventListener('change', requestRender);
 new ResizeObserver(requestRender).observe(document.body);
 
+function openModal(target) {
+  if (typeof target.showModal === 'function') target.showModal();
+  else {
+    target.setAttribute('open', '');
+    document.body.classList.add('dialog-fallback-open');
+  }
+  document.body.classList.add('dialog-open');
+}
+function closeModal(target) {
+  if (typeof target.close === 'function') target.close();
+  else target.removeAttribute('open');
+  document.body.classList.remove('dialog-open', 'dialog-fallback-open');
+}
+
 function populateProject(key) {
   const project = projects[key];
   const index = language === 'fr' ? 0 : 1;
@@ -156,18 +174,35 @@ document.querySelectorAll('[data-project]').forEach(button => {
   button.addEventListener('click', () => {
     currentProject = button.dataset.project;
     populateProject(currentProject);
-    dialog.showModal();
-    document.body.classList.add('dialog-open');
+    openModal(dialog);
   });
 });
-document.querySelector('.dialog-close').addEventListener('click', () => dialog.close());
+document.querySelector('#project-dialog .dialog-close').addEventListener('click', () => closeModal(dialog));
 dialog.addEventListener('click', event => {
   const bounds = dialog.getBoundingClientRect();
-  if (event.target === dialog && (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom)) dialog.close();
+  if (event.target === dialog && (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom)) closeModal(dialog);
 });
 dialog.addEventListener('close', () => {
-  document.body.classList.remove('dialog-open');
+  document.body.classList.remove('dialog-open', 'dialog-fallback-open');
   currentProject = null;
+});
+
+cvOpen.addEventListener('click', () => {
+  openModal(cvDialog);
+});
+document.querySelector('#cv-close').addEventListener('click', () => closeModal(cvDialog));
+cvDialog.addEventListener('click', event => {
+  const bounds = cvDialog.getBoundingClientRect();
+  if (event.target === cvDialog && (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom)) closeModal(cvDialog);
+});
+cvDialog.addEventListener('close', () => document.body.classList.remove('dialog-open', 'dialog-fallback-open'));
+document.addEventListener('keydown', event => {
+  if (event.key !== 'Escape') return;
+  if (cvDialog.hasAttribute('open')) closeModal(cvDialog);
+  if (dialog.hasAttribute('open')) closeModal(dialog);
+});
+cvFullscreen.addEventListener('click', () => {
+  window.open('assets/CV_BAITICHE_Roulem_.pdf', '_blank', 'noopener');
 });
 
 const frenchDescription = document.querySelector('meta[name="description"]').content;
@@ -187,7 +222,9 @@ function setLanguage(next) {
   navigation.setAttribute('aria-label', language === 'fr' ? 'Navigation principale' : 'Main navigation');
   document.querySelector('.scroll-rail').setAttribute('aria-label', language === 'fr' ? 'Progression de lecture' : 'Reading progress');
   document.querySelector('.dialog-close').setAttribute('aria-label', language === 'fr' ? 'Fermer le projet' : 'Close project');
-  document.querySelectorAll('.brand').forEach(link => link.setAttribute('aria-label', language === 'fr' ? 'Roulem Baitiche, accueil' : 'Roulem Baitiche, home'));
+  document.querySelectorAll('.home-link').forEach(link => link.setAttribute('aria-label', language === 'fr' ? 'Accueil' : 'Home'));
+  document.querySelector('#cv-close').setAttribute('aria-label', language === 'fr' ? 'Fermer l’aperçu du CV' : 'Close resume preview');
+  cvPreviewImage.alt = language === 'fr' ? 'Aperçu de la première page du CV de Roulem Baitiche' : 'Preview of the first page of Roulem Baitiche’s resume';
   document.title = `Roulem Baitiche — ${language === 'fr' ? 'Cybersécurité' : 'Cybersecurity'}, DevOps & Cloud`;
   document.querySelector('meta[property="og:title"]').content = document.title;
   document.querySelector('meta[name="description"]').content = language === 'fr' ? frenchDescription : 'Roulem Baitiche, engineering student at ESAIP. Cybersecurity, DevOps and Cloud: experience, projects and an international background.';
