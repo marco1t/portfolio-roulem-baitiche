@@ -14,6 +14,7 @@ const mobile = matchMedia('(max-width: 800px)');
 let language = 'fr';
 let currentProject = null;
 let framePending = false;
+let lastScrollY = 0;
 
 const projects = {
   securedash: {
@@ -99,14 +100,21 @@ function renderScroll() {
   document.querySelector('#progress').style.transform = `scaleX(${progress})`;
   document.querySelector('#rail-progress').style.transform = `scaleY(${progress})`;
   document.querySelector('#scroll-percent').textContent = `${Math.round(progress * 100)} %`;
-  document.querySelector('#topbar').classList.toggle('compact', scrollY > 70);
+  const topbar = document.querySelector('#topbar');
+  const scrollingDown = scrollY > lastScrollY + 4;
+  const scrollingUp = scrollY < lastScrollY - 4;
+  if (scrollY <= 70 || scrollingUp) topbar.classList.remove('compact');
+  else if (scrollingDown) topbar.classList.add('compact');
+  lastScrollY = scrollY;
   let current = sections[0];
   for (const section of sections) {
     if (section.getBoundingClientRect().top <= innerHeight * .4) current = section;
   }
   if (progress > .99) current = sections.at(-1);
-  document.querySelector('#section-name').textContent = language === 'fr' ? current.dataset.label : current.dataset.labelEn;
-  const parentSection = { competences: 'projets', engagements: 'parcours' };
+  const currentLabel = language === 'fr' ? current.dataset.label : current.dataset.labelEn;
+  document.querySelector('#section-name').textContent = currentLabel;
+  document.querySelector('#compact-label').textContent = current.id === 'accueil' ? 'Roulem' : currentLabel;
+  const parentSection = { competences: 'projets' };
   const activeId = parentSection[current.id] || current.id;
   navLinks.forEach(link => {
     const active = link.hash === `#${activeId}`;

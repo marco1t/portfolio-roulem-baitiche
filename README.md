@@ -16,18 +16,18 @@ Puis ouvrir http://127.0.0.1:4173.
 
 - `index.html` : contenu français et traductions anglaises (`data-en`).
 - `styles.css` : identité visuelle, menus en verre liquide, responsive et réduction des animations.
-- `script.js` : langue, menu mobile, progression de lecture et fiches projets bilingues.
-- `assets/` : visuels repris du portfolio d’origine, capture publique de SecureDash et favicon.
+- `script.js` : langue, menu mobile, navigation compacte au défilement, progression de lecture et fiches projets bilingues.
+- `assets/` : visuels repris du portfolio d’origine, capture publique de SecureDash, favicon et CV téléchargeable.
 
-Les informations proviennent du profil fourni, du précédent portfolio et des descriptions des dépôts publics de Roulem. Les réalisations présentées sont SecureDash, Dashboard Artisan et Cyber Threat Intelligence. Les deux expériences techniques, les emplois précédents, la formation et les engagements bénévoles sont inclus.
+Les informations proviennent du CV fourni, du profil, du précédent portfolio et des descriptions des dépôts publics de Roulem. Les réalisations présentées sont SecureDash, Dashboard Artisan et Cyber Threat Intelligence. Les deux expériences techniques, RS2i, les emplois précédents, la formation, l’analyse forensique et les engagements bénévoles sont inclus.
 
 La version publique du Dashboard Artisan contient des données fictives et n’accède pas à la base Firebase interne. SecureDash est présenté comme un prototype pédagogique.
 
-Le CV et l’adresse e-mail ne sont pas ajoutés : aucun fichier CV ni adresse de contact à publier n’a été fourni. Le contact passe par le profil LinkedIn fourni. Aucune photo de profil de remplacement ni statistique personnelle n’est inventée.
+Le CV est accessible depuis le bouton « CV » du menu. L’adresse e-mail et le numéro de téléphone restent dans le PDF afin d’éviter de les afficher directement sur la page. Aucune photo de profil de remplacement ni statistique personnelle n’est inventée.
 
 ## Navigation et accessibilité
 
-Menu en verre liquide avec reflet suivant le pointeur ; élément actif au défilement ; barre de progression supérieure ; repère de lecture latéral ; menu mobile ; lien d’évitement ; navigation clavier ; fiches projets en dialogue natif (Échap pour fermer) ; respect de `prefers-reduced-motion`. La préférence de langue est enregistrée localement, sans suivi analytique.
+Menu en verre liquide avec reflet suivant le pointeur ; navigation complète en haut de page puis capsule compacte pendant la descente, qui se redéploie à la remontée ; Accueil reste accessible via le logo mais n’est pas un item de menu ; Formations et Engagement sont les entrées françaises ; la section courante est affichée à côté de la barre de progression et du pourcentage ; menu mobile ; lien d’évitement ; navigation clavier ; fiches projets en dialogue natif (Échap pour fermer) ; respect de `prefers-reduced-motion`. La préférence de langue est enregistrée localement, sans suivi analytique.
 
 Les polices sont chargées depuis Google Fonts ; une police système prend le relais si le service est indisponible. Le contenu français reste lisible sans JavaScript ; les liens directs vers les dépôts fonctionnent également.
 
