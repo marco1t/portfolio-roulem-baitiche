@@ -35,3 +35,10 @@ dialog{color:var(--text);background:#ffffff;border:1px solid #2333492e;border-ra
 /* Animate the desktop capsule instead of swapping its contents in one frame. */
 .liquid-nav{transition:background .35s,transform .35s,padding .45s ease,gap .45s ease,border-radius .45s ease}
 .nav-link{display:block;max-width:180px;opacity:1;overflow:hidden;transition:color .25s,background .25s,max-width .45s ease,opacity .3s ease,padding .45s ease,transform .45s ease}
+
+/* Keep the CV and language controls visually connected to the liquid navigation. */
+.header-actions .cv-link,
+.header-actions .language{background:rgba(255,255,255,.72);border:1px solid rgba(155,165,177,.42);box-shadow:inset 0 1px rgba(255,255,255,.9),inset 0 -1px rgba(36,42,48,.05),0 12px 35px #171f2a14;color:#252a30;transition:background .25s,border-color .25s,box-shadow .25s,transform .25s}
+.header-actions .cv-link:hover,
+.header-actions .language:hover{background:rgba(255,255,255,.96);border-color:rgba(36,42,48,.38);box-shadow:inset 0 1px #fff,0 10px 28px #171f2a1c;transform:translateY(-1px)}
+.header-actions .language span{color:#555d66}
