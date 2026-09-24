@@ -27,7 +27,7 @@ Le CV est accessible depuis le bouton « CV » du menu. L’adresse e-mail et le
 
 ## Navigation et accessibilité
 
-Menu en verre liquide avec reflet suivant le pointeur ; navigation complète en haut de page puis capsule compacte pendant la descente, qui se redéploie à la remontée ; Accueil reste accessible via le logo mais n’est pas un item de menu ; Formations et Engagement sont les entrées françaises ; la section courante est affichée à côté de la barre de progression et du pourcentage ; menu mobile ; lien d’évitement ; navigation clavier ; fiches projets en dialogue natif (Échap pour fermer) ; respect de `prefers-reduced-motion`. La préférence de langue est enregistrée localement, sans suivi analytique.
+Menu en verre liquide avec reflet suivant le pointeur ; navigation complète en haut de page puis capsule compacte progressivement pendant la descente, qui se redéploie à la remontée ; Accueil reste accessible via le logo mais n’est pas un item de menu ; Formations et Engagement sont les entrées françaises ; le rail de lecture conserve uniquement la barre et le pourcentage ; menu mobile ; lien d’évitement ; navigation clavier ; fiches projets en dialogue natif (Échap pour fermer) ; respect de `prefers-reduced-motion`. La préférence de langue est enregistrée localement, sans suivi analytique.
 
 Les polices sont chargées depuis Google Fonts ; une police système prend le relais si le service est indisponible. Le contenu français reste lisible sans JavaScript ; les liens directs vers les dépôts fonctionnent également.
 

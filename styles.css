@@ -16,19 +16,22 @@ dialog{color:var(--text);background:#ffffff;border:1px solid #2333492e;border-ra
 @media print{body{background:#fff;color:#111}.topbar,.scroll-rail,.reading-progress,.hero-image,.hero-note,.scroll-cue,.expertise-strip,.hero-bottom,dialog,.contact-actions,.project-visual,.journey-image-wrap,.back-top{display:none!important}.hero{height:auto;min-height:0}.hero::before{display:none}.hero-layout{display:block;padding:30px 0}.container{width:100%}.section{padding:25px 0}p,.experience-content p,.company,.eyebrow,.experience-meta .year,.hero-role{color:#333!important}.section-heading h2{font-size:28px}h1{font-size:48px}.projects-section,.journey-section,.featured-project,.project-card,.contact-card{background:#fff}.contact-section{padding:0}.contact-card{padding:25px}.project-grid,.journey-layout{display:block}.project-card,.experience-row,.education-list article{break-inside:avoid}.hero-actions,.project-links{display:none}}
 
 /* Scroll behavior: full liquid navigation at the top, one floating capsule while scrolling down. */
-.compact-label{display:none;color:#1f2429;font-size:13px;font-weight:750;padding:9px 16px;white-space:nowrap}
-.compact-dot{display:none;width:8px;height:8px;border-radius:50%;background:#252a30;box-shadow:0 0 0 5px #252a3012;margin:0 12px 0 3px}
+.compact-label{display:block;max-width:0;opacity:0;overflow:hidden;color:#1f2429;font-size:13px;font-weight:750;padding:9px 0;white-space:nowrap;transition:max-width .45s ease,opacity .3s ease,padding .45s ease}
+.compact-dot{display:block;width:8px;max-width:0;opacity:0;height:8px;border-radius:50%;background:#252a30;box-shadow:0 0 0 5px #252a3012;margin:0;transform:scale(.4);transition:max-width .45s ease,opacity .3s ease,margin .45s ease,transform .45s ease}
 .cv-link{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 15px;border-radius:30px;font-size:13px;font-weight:750;color:#252a30}
 .cv-link:hover{background:#eef0f2}
-.topbar.compact .liquid-nav{padding:4px;border-radius:24px;transform:scale(.97)}
-.topbar.compact .liquid-nav .nav-link{display:none}
-.topbar.compact .compact-label{display:block}
-.topbar.compact .compact-dot{display:block}
+.topbar.compact .liquid-nav{gap:0;padding:4px;border-radius:24px;transform:scale(.97)}
+.topbar.compact .liquid-nav .nav-link{max-width:0;opacity:0;overflow:hidden;padding-inline:0;pointer-events:none;transform:scale(.86)}
+.topbar.compact .compact-label{max-width:160px;opacity:1;padding-inline:16px}
+.topbar.compact .compact-dot{max-width:8px;opacity:1;margin:0 12px 0 3px;transform:scale(1)}
 .rail-status{display:flex;align-items:center;gap:10px}
-.scroll-rail #section-name{writing-mode:horizontal-tb;max-width:92px;text-align:right;white-space:nowrap;font-size:11px}
-.scroll-rail #scroll-percent{writing-mode:horizontal-tb;white-space:nowrap}
+.scroll-rail #scroll-percent{writing-mode:horizontal-tb;white-space:nowrap;font-size:11px;font-variant-numeric:tabular-nums}
 .scroll-rail .rail-track{flex:0 0 auto}
 .other-grid{grid-template-columns:repeat(4,1fr)}
 @media(min-width:1101px){.skills-grid{grid-template-columns:repeat(4,1fr)}}
 @media(max-width:1100px) and (min-width:801px){.skills-grid{grid-template-columns:repeat(2,1fr)}.other-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:800px){.cv-link{height:42px;padding:0 12px}.compact-label,.compact-dot{display:none!important}.topbar.compact .liquid-nav .nav-link{display:block}.topbar.compact .liquid-nav{padding:10px;border-radius:22px;transform:none}.rail-status{gap:8px}}
+@media(max-width:800px){.cv-link{height:42px;padding:0 12px}.compact-label,.compact-dot{display:none!important}.topbar.compact .liquid-nav .nav-link{max-width:none;opacity:1;overflow:visible;padding-inline:17px;pointer-events:auto;transform:none}.topbar.compact .liquid-nav{gap:3px;padding:10px;border-radius:22px;transform:none}.rail-status{gap:8px}}
+
+/* Animate the desktop capsule instead of swapping its contents in one frame. */
+.liquid-nav{transition:background .35s,transform .35s,padding .45s ease,gap .45s ease,border-radius .45s ease}
+.nav-link{display:block;max-width:180px;opacity:1;overflow:hidden;transition:color .25s,background .25s,max-width .45s ease,opacity .3s ease,padding .45s ease,transform .45s ease}

@@ -112,7 +112,6 @@ function renderScroll() {
   }
   if (progress > .99) current = sections.at(-1);
   const currentLabel = language === 'fr' ? current.dataset.label : current.dataset.labelEn;
-  document.querySelector('#section-name').textContent = currentLabel;
   document.querySelector('#compact-label').textContent = current.id === 'accueil' ? 'Roulem' : currentLabel;
   const parentSection = { competences: 'projets' };
   const activeId = parentSection[current.id] || current.id;
