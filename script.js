@@ -16,6 +16,7 @@ const timelineSticky = timeline?.querySelector('.timeline-sticky');
 const timelineSteps = timeline ? [...timeline.querySelectorAll('[data-timeline-step]')] : [];
 const journey = document.querySelector('[data-journey]');
 const journeySticky = journey?.querySelector('.journey-sticky');
+const journeyList = journey?.querySelector('.education-list');
 const journeySteps = journey ? [...journey.querySelectorAll('[data-journey-step]')] : [];
 const journeyImages = journey ? [...journey.querySelectorAll('[data-journey-image]')] : [];
 const journeyCaptions = journey ? [...journey.querySelectorAll('[data-journey-caption]')] : [];
@@ -175,6 +176,18 @@ function renderJourney() {
   const progress = Math.min(1, Math.max(0, (stickyTop - rect.top) / distance));
   const activeIndex = Math.min(journeySteps.length - 1, Math.floor(progress * journeySteps.length));
   journey.style.setProperty('--journey-progress', progress.toFixed(4));
+  if (journeyList && !mobile.matches) {
+    const pointStyle = getComputedStyle(journeySteps[0], '::before');
+    const pointTop = Number.parseFloat(pointStyle.top) || 0;
+    const pointHeight = Number.parseFloat(pointStyle.height) || 0;
+    const lineStart = journeySteps[0].offsetTop + pointTop + pointHeight / 2;
+    const lineEnd = journeySteps.at(-1).offsetTop + pointTop + pointHeight / 2;
+    const lineLength = Math.max(1, lineEnd - lineStart);
+    journeyList.style.setProperty('--journey-line-start', `${lineStart}px`);
+    journeyList.style.setProperty('--journey-line-length', `${lineLength}px`);
+    const markerY = journeySteps[activeIndex].offsetTop + pointTop + pointHeight / 2;
+    journeyList.style.setProperty('--journey-marker-y', `${markerY}px`);
+  }
   journeySteps.forEach((step, index) => {
     step.classList.toggle('is-active', index === activeIndex);
     step.classList.toggle('is-past', index < activeIndex);
