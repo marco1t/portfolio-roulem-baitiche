@@ -200,8 +200,22 @@ body.dialog-fallback-open::before{content:"";position:fixed;inset:0;z-index:110;
 /* Direct contact options. */
 .contact-card{display:grid;grid-template-columns:minmax(260px,.82fr) minmax(0,1.18fr);gap:54px;align-items:center}
 .contact-copy{max-width:440px}
+.contact-card .contact-availability{display:flex;align-items:flex-start;gap:10px;margin:20px 0 0;color:#69717a;font-size:12px;line-height:1.65}
+.availability-dot{width:7px;height:7px;flex:0 0 7px;margin-top:6px;border-radius:50%;background:#30353a;box-shadow:0 0 0 4px #30353a0d}
 .contact-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .contact-link{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:14px;min-height:104px;padding:18px;border:1px solid rgba(36,42,48,.14);border-radius:18px;background:rgba(255,255,255,.72);box-shadow:inset 0 1px #fff,0 10px 30px #17202b0a;transition:border-color .25s ease,box-shadow .25s ease,transform .25s ease,background .25s ease}
+.contact-link-primary{grid-column:1/-1;min-height:100px;padding:20px 22px;border-color:rgba(36,42,48,.22);background:rgba(255,255,255,.92)}
+.contact-link-primary .contact-link-icon{width:46px;height:46px;background:#eef0f1}
+.contact-link-primary .contact-link-icon svg{width:22px;height:22px}
+.contact-link-primary .contact-link-copy>span{font-size:12px}
+.contact-link-primary .contact-link-copy strong{font-size:clamp(15px,1.15vw,17px);letter-spacing:-.015em}
+.contact-link-primary[href^="mailto:"] .contact-link-copy strong{overflow-wrap:normal;word-break:normal}
+.contact-link-secondary{min-height:70px;padding:12px 14px;border-radius:14px;box-shadow:inset 0 1px #fff,0 7px 22px #17202b08}
+.contact-link-secondary .contact-link-icon{width:32px;height:32px}
+.contact-link-secondary .contact-link-icon svg{width:16px;height:16px}
+.contact-link-secondary .contact-link-copy>span{margin-bottom:1px;font-size:9px}
+.contact-link-secondary .contact-link-copy strong{font-size:12px}
+.contact-link-secondary .contact-link-arrow{font-size:13px}
 .contact-link:hover{border-color:rgba(36,42,48,.34);background:#fff;box-shadow:inset 0 1px #fff,0 16px 34px #17202b14;transform:translateY(-3px)}
 .contact-link-icon{display:grid;width:40px;height:40px;place-items:center;border:1px solid rgba(36,42,48,.14);border-radius:50%;background:#f4f5f6;color:#252a30}
 .contact-link-icon svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round}
@@ -220,6 +234,8 @@ body.dialog-fallback-open::before{content:"";position:fixed;inset:0;z-index:110;
 @media(max-width:520px){
   .contact-links{grid-template-columns:1fr}
   .contact-link{min-height:90px;padding:15px}
+  .contact-link-primary{min-height:96px;padding:17px}
+  .contact-link-secondary{min-height:68px;padding:11px 13px}
 }
 
 @media(prefers-reduced-motion:reduce){
