@@ -128,7 +128,7 @@ body.dialog-fallback-open::before{content:"";position:fixed;inset:0;z-index:110;
   .education-list::after{left:-.5px;width:1px}
   .education-list::after{background:#20252b;transform:scaleY(var(--journey-progress,0));transition:transform .18s linear}
   .education-list article{z-index:1;border-left:0}
-  .education-list article::before{z-index:2;left:-5.5px}
+  .education-list article::before{box-sizing:border-box;z-index:2;top:3px;left:0;width:15px;height:15px;transform:translateX(-50%)}
   .education-list article.is-active::before{border-color:#aeb6bf;background:#f6f6f6;box-shadow:0 0 0 5px #f6f6f6}
   .journey-marker{position:absolute;display:block;z-index:4;top:var(--journey-marker-y,10px);left:0;width:17px;height:17px;border-radius:50%;background:#20252b;box-shadow:0 0 0 7px #20252b0d;transform:translate(-50%,-50%);transition:top .38s cubic-bezier(.22,.8,.25,1);pointer-events:none}
 }
