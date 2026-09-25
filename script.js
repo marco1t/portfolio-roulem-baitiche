@@ -12,7 +12,13 @@ const cvFullscreen = document.querySelector('#cv-fullscreen');
 const navLinks = [...document.querySelectorAll('.nav-link')];
 const sections = [...document.querySelectorAll('main section[data-label]')];
 const timeline = document.querySelector('[data-timeline]');
+const timelineSticky = timeline?.querySelector('.timeline-sticky');
 const timelineSteps = timeline ? [...timeline.querySelectorAll('[data-timeline-step]')] : [];
+const journey = document.querySelector('[data-journey]');
+const journeySticky = journey?.querySelector('.journey-sticky');
+const journeySteps = journey ? [...journey.querySelectorAll('[data-journey-step]')] : [];
+const journeyImages = journey ? [...journey.querySelectorAll('[data-journey-image]')] : [];
+const journeyCaptions = journey ? [...journey.querySelectorAll('[data-journey-caption]')] : [];
 const translatedNodes = [...document.querySelectorAll('[data-en]')];
 const originalText = new Map(translatedNodes.map(node => [node, node.innerHTML]));
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
@@ -128,6 +134,7 @@ function renderScroll() {
     else link.removeAttribute('aria-current');
   });
   renderTimeline();
+  renderJourney();
   const heroImage = document.querySelector('.hero-image');
   heroImage.style.transform = !reducedMotion.matches && !mobile.matches
     ? `translateY(${Math.min(scrollY, innerHeight) * .12}px) scale(1.05)` : '';
@@ -137,17 +144,54 @@ function renderScroll() {
 function renderTimeline() {
   if (!timeline || !timelineSteps.length) return;
   const rect = timeline.getBoundingClientRect();
-  const start = innerHeight * .76;
-  const end = innerHeight * .28;
-  const distance = rect.height + start - end;
-  const progress = Math.min(1, Math.max(0, (start - rect.top) / distance));
-  const activeIndex = Math.min(timelineSteps.length - 1, Math.round(progress * (timelineSteps.length - 1)));
+  let progress;
+  if (!mobile.matches && timelineSticky) {
+    const stickyTop = Number.parseFloat(getComputedStyle(timelineSticky).top) || 0;
+    const distance = Math.max(1, rect.height - timelineSticky.offsetHeight);
+    progress = Math.min(1, Math.max(0, (stickyTop - rect.top) / distance));
+  } else {
+    const start = innerHeight * .76;
+    const end = innerHeight * .28;
+    const distance = rect.height + start - end;
+    progress = Math.min(1, Math.max(0, (start - rect.top) / distance));
+  }
+  // Give every card the same amount of scroll time. Using Math.round here
+  // made the first and last cards active for only half as long as the others.
+  const activeIndex = Math.min(timelineSteps.length - 1, Math.floor(progress * timelineSteps.length));
   const markerProgress = timelineSteps.length > 1 ? activeIndex / (timelineSteps.length - 1) : 0;
   timeline.style.setProperty('--timeline-progress', progress.toFixed(4));
   timeline.style.setProperty('--timeline-marker-progress', markerProgress.toFixed(4));
   timelineSteps.forEach((step, index) => {
     step.classList.toggle('is-active', index === activeIndex);
     step.classList.toggle('is-past', index < activeIndex);
+  });
+}
+
+function renderJourney() {
+  if (!journey || !journeySticky || !journeySteps.length) return;
+  const rect = journey.getBoundingClientRect();
+  const stickyTop = Number.parseFloat(getComputedStyle(journeySticky).top) || 0;
+  const distance = Math.max(1, rect.height - journeySticky.offsetHeight);
+  const progress = Math.min(1, Math.max(0, (stickyTop - rect.top) / distance));
+  const activeIndex = Math.min(journeySteps.length - 1, Math.floor(progress * journeySteps.length));
+  journey.style.setProperty('--journey-progress', progress.toFixed(4));
+  journeySteps.forEach((step, index) => {
+    step.classList.toggle('is-active', index === activeIndex);
+    step.classList.toggle('is-past', index < activeIndex);
+    if (index === activeIndex) step.setAttribute('aria-current', 'step');
+    else step.removeAttribute('aria-current');
+  });
+  journeyImages.forEach((image, index) => {
+    const active = index === activeIndex;
+    image.classList.toggle('is-active', active);
+    if (active) image.removeAttribute('aria-hidden');
+    else image.setAttribute('aria-hidden', 'true');
+  });
+  journeyCaptions.forEach((caption, index) => {
+    const active = index === activeIndex;
+    caption.classList.toggle('is-active', active);
+    if (active) caption.removeAttribute('aria-hidden');
+    else caption.setAttribute('aria-hidden', 'true');
   });
 }
 function requestRender() {
