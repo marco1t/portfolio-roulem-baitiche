@@ -11,6 +11,8 @@ const cvPreviewImage = document.querySelector('#cv-preview-image');
 const cvFullscreen = document.querySelector('#cv-fullscreen');
 const navLinks = [...document.querySelectorAll('.nav-link')];
 const sections = [...document.querySelectorAll('main section[data-label]')];
+const timeline = document.querySelector('[data-timeline]');
+const timelineSteps = timeline ? [...timeline.querySelectorAll('[data-timeline-step]')] : [];
 const translatedNodes = [...document.querySelectorAll('[data-en]')];
 const originalText = new Map(translatedNodes.map(node => [node, node.innerHTML]));
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
@@ -41,8 +43,8 @@ const projects = {
     title: 'Dashboard Artisan',
     category: ['Développement web · ETS Étanchéité', 'Web development · ETS Étanchéité'],
     description: [
-      'Une solution de gestion développée pour ETS Étanchéité tout support pendant mon CDD de l’été 2025. Le projet interne utilise JavaScript, Chart.js et Firebase. La version publique permet de découvrir l’interface sans accéder aux données de l’entreprise.',
-      'A management solution built for ETS Étanchéité tout support during my summer 2025 contract. The internal project uses JavaScript, Chart.js and Firebase. The public version showcases the interface without exposing company data.'
+      'Une solution de gestion développée pour ETS Étanchéité tout support pendant mon stage de l’été 2025. Le projet interne utilise JavaScript, Chart.js et Firebase. La version publique permet de découvrir l’interface sans accéder aux données de l’entreprise.',
+      'A management solution built for ETS Étanchéité tout support during my summer 2025 internship. The internal project uses JavaScript, Chart.js and Firebase. The public version showcases the interface without exposing company data.'
     ],
     points: [
       ['Tableau de bord et indicateurs de gestion.', 'Management dashboard and key indicators.'],
@@ -125,10 +127,28 @@ function renderScroll() {
     if (active) link.setAttribute('aria-current', 'location');
     else link.removeAttribute('aria-current');
   });
+  renderTimeline();
   const heroImage = document.querySelector('.hero-image');
   heroImage.style.transform = !reducedMotion.matches && !mobile.matches
     ? `translateY(${Math.min(scrollY, innerHeight) * .12}px) scale(1.05)` : '';
   framePending = false;
+}
+
+function renderTimeline() {
+  if (!timeline || !timelineSteps.length) return;
+  const rect = timeline.getBoundingClientRect();
+  const start = innerHeight * .76;
+  const end = innerHeight * .28;
+  const distance = rect.height + start - end;
+  const progress = Math.min(1, Math.max(0, (start - rect.top) / distance));
+  const activeIndex = Math.min(timelineSteps.length - 1, Math.round(progress * (timelineSteps.length - 1)));
+  const markerProgress = timelineSteps.length > 1 ? activeIndex / (timelineSteps.length - 1) : 0;
+  timeline.style.setProperty('--timeline-progress', progress.toFixed(4));
+  timeline.style.setProperty('--timeline-marker-progress', markerProgress.toFixed(4));
+  timelineSteps.forEach((step, index) => {
+    step.classList.toggle('is-active', index === activeIndex);
+    step.classList.toggle('is-past', index < activeIndex);
+  });
 }
 function requestRender() {
   if (framePending) return;
