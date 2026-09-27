@@ -18,8 +18,11 @@ dialog{color:var(--text);background:#ffffff;border:1px solid #2333492e;border-ra
 /* Scroll behavior: full liquid navigation at the top, one floating capsule while scrolling down. */
 .compact-label{display:block;max-width:0;opacity:0;overflow:hidden;color:#1f2429;font-size:13px;font-weight:750;padding:9px 0;white-space:nowrap;transition:max-width .45s ease,opacity .3s ease,padding .45s ease}
 .compact-dot{display:block;width:8px;max-width:0;opacity:0;height:8px;border-radius:50%;background:#252a30;box-shadow:0 0 0 5px #252a3012;margin:0;transform:scale(.4);transition:max-width .45s ease,opacity .3s ease,margin .45s ease,transform .45s ease}
-.cv-link{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 15px;border-radius:30px;font-size:13px;font-weight:750;color:#252a30}
+.cv-link{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 17px;border-radius:30px;font-size:13px;font-weight:750;color:#252a30;white-space:nowrap}
 .cv-link:hover{background:#eef0f2}
+.cv-label-short{display:none}
+.hero-actions{gap:8px}
+.hero-actions .button{min-height:55px;padding:12px 22px;gap:17px;font-size:14.4px}
 .topbar.compact .liquid-nav{gap:0;padding:4px;border-radius:24px;transform:scale(.97)}
 .topbar.compact .liquid-nav .nav-link{max-width:0;opacity:0;overflow:hidden;padding-inline:0;pointer-events:none;transform:scale(.86)}
 .topbar.compact .compact-label{max-width:160px;opacity:1;padding-inline:16px}
@@ -30,7 +33,7 @@ dialog{color:var(--text);background:#ffffff;border:1px solid #2333492e;border-ra
 .other-grid{grid-template-columns:repeat(4,1fr)}
 @media(min-width:1101px){.skills-grid{grid-template-columns:repeat(4,1fr)}}
 @media(max-width:1100px) and (min-width:801px){.skills-grid{grid-template-columns:repeat(2,1fr)}.other-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:800px){.cv-link{height:42px;padding:0 12px}.compact-label,.compact-dot{display:none!important}.topbar.compact .liquid-nav .nav-link{max-width:none;opacity:1;overflow:visible;padding-inline:17px;pointer-events:auto;transform:none}.topbar.compact .liquid-nav{gap:3px;padding:10px;border-radius:22px;transform:none}.rail-status{gap:8px}}
+@media(max-width:800px){.cv-link{height:42px;padding:0 12px}.cv-link .cv-label-full{display:none}.cv-link .cv-label-short{display:inline}.compact-label,.compact-dot{display:none!important}.topbar.compact .liquid-nav .nav-link{max-width:none;opacity:1;overflow:visible;padding-inline:17px;pointer-events:auto;transform:none}.topbar.compact .liquid-nav{gap:3px;padding:10px;border-radius:22px;transform:none}.rail-status{gap:8px}}
 
 /* Animate the desktop capsule instead of swapping its contents in one frame. */
 .liquid-nav{transition:background .35s,transform .35s,padding .45s ease,gap .45s ease,border-radius .45s ease}
@@ -41,6 +44,8 @@ dialog{color:var(--text);background:#ffffff;border:1px solid #2333492e;border-ra
 .header-actions .language{background:rgba(255,255,255,.72);border:1px solid rgba(155,165,177,.42);box-shadow:inset 0 1px rgba(255,255,255,.9),inset 0 -1px rgba(36,42,48,.05),0 12px 35px #171f2a14;color:#252a30;transition:background .25s,border-color .25s,box-shadow .25s,transform .25s}
 .header-actions .cv-link:hover,
 .header-actions .language:hover{background:rgba(255,255,255,.96);border-color:rgba(36,42,48,.38);box-shadow:inset 0 1px #fff,0 10px 28px #171f2a1c;transform:translateY(-1px)}
+.header-actions .cv-link{background:#202328;border-color:#202328;color:#fff;box-shadow:inset 0 1px rgba(255,255,255,.12),0 12px 35px #171f2a24}
+.header-actions .cv-link:hover{background:#3a3d42;border-color:#3a3d42;box-shadow:inset 0 1px rgba(255,255,255,.14),0 12px 32px #171f2a2b}
 .header-actions .language span{color:#555d66}
 .home-link{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 15px;border-radius:30px;color:#252a30;font-size:13px;font-weight:750;white-space:nowrap;background:rgba(255,255,255,.72);border:1px solid rgba(155,165,177,.42);box-shadow:inset 0 1px rgba(255,255,255,.9),inset 0 -1px rgba(36,42,48,.05),0 12px 35px #171f2a14;transition:background .25s,border-color .25s,box-shadow .25s,transform .25s,gap .45s ease,padding .45s ease}
 .home-link>span{display:block;max-width:80px;overflow:hidden;opacity:1;transition:max-width .45s ease,opacity .3s ease}

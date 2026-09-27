@@ -1,20 +1,20 @@
 <!doctype html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
-  <meta name="description" content="Roulem Baitiche, étudiant ingénieur à l’ESAIP. Cybersécurité, DevOps et Cloud : expériences, projets et parcours international.">
-  <meta property="og:title" content="Roulem Baitiche — Cybersécurité, DevOps & Cloud">
-  <meta property="og:description" content="De l’infrastructure à l’application : découvrez mes projets, mes expériences et mon parcours d’étudiant ingénieur.">
+  <meta name="description" content="Roulem Baitiche, engineering student at ESAIP. Cybersecurity, DevOps and Cloud: experience, projects and an international background.">
+  <meta property="og:title" content="Roulem Baitiche — Cybersecurity, DevOps & Cloud">
+  <meta property="og:description" content="From infrastructure to applications: discover my projects, experience and international background.">
   <meta property="og:type" content="website">
-  <title>Roulem Baitiche — Cybersécurité, DevOps & Cloud</title>
+  <title>Roulem Baitiche — Cybersecurity, DevOps & Cloud</title>
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;650;700;750;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20260926-contact-scale">
-  <script src="script.js?v=20260925-journey-progress" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20260926-cv-plus20">
+  <script src="script.js?v=20260926-default-en" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main" data-en="Skip to content">Aller au contenu</a>
@@ -31,7 +31,7 @@
         <span class="compact-label" id="compact-label" aria-hidden="true">Accueil</span><span class="compact-dot" aria-hidden="true"></span>
       </nav>
       <div class="header-actions">
-        <button class="cv-link glass" id="cv-open" type="button" data-en="Resume">CV</button>
+        <button class="cv-link glass" id="cv-open" type="button" data-cv-open><span class="cv-label-full" data-en="View my resume">Voir mon CV</span><span class="cv-label-short">CV</span></button>
         <button class="language glass" id="language" type="button" aria-label="Switch to English">FR <span aria-hidden="true">/ EN</span></button>
         <button class="menu-toggle glass" id="menu" type="button" aria-controls="navigation" aria-expanded="false" aria-label="Ouvrir le menu"><span></span><span></span></button>
       </div>
@@ -52,6 +52,7 @@
           <div class="hero-actions">
             <a class="button primary" href="#projets"><span data-en="Explore my projects">Découvrir mes projets</span><span aria-hidden="true">↘</span></a>
             <a class="button secondary" href="#contact" data-en="Let’s talk">Échangeons</a>
+            <button class="button secondary hero-cv-button" type="button" data-cv-open><span data-en="View my resume">Voir mon CV</span></button>
           </div>
         </div>
         <div class="hero-note glass">

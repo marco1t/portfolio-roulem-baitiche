@@ -6,7 +6,7 @@ const menu = document.querySelector('#menu');
 const languageButton = document.querySelector('#language');
 const dialog = document.querySelector('#project-dialog');
 const cvDialog = document.querySelector('#cv-dialog');
-const cvOpen = document.querySelector('#cv-open');
+const cvOpenButtons = [...document.querySelectorAll('[data-cv-open]')];
 const cvPreviewImage = document.querySelector('#cv-preview-image');
 const cvFullscreen = document.querySelector('#cv-fullscreen');
 const navLinks = [...document.querySelectorAll('.nav-link')];
@@ -24,7 +24,7 @@ const translatedNodes = [...document.querySelectorAll('[data-en]')];
 const originalText = new Map(translatedNodes.map(node => [node, node.innerHTML]));
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const mobile = matchMedia('(max-width: 800px)');
-let language = 'fr';
+let language = 'en';
 let currentProject = null;
 let framePending = false;
 let lastScrollY = 0;
@@ -264,9 +264,7 @@ dialog.addEventListener('close', () => {
   currentProject = null;
 });
 
-cvOpen.addEventListener('click', () => {
-  openModal(cvDialog);
-});
+cvOpenButtons.forEach(button => button.addEventListener('click', () => openModal(cvDialog)));
 document.querySelector('#cv-close').addEventListener('click', () => closeModal(cvDialog));
 cvDialog.addEventListener('click', event => {
   const bounds = cvDialog.getBoundingClientRect();
@@ -282,7 +280,10 @@ cvFullscreen.addEventListener('click', () => {
   window.open('assets/CV_BAITICHE_Roulem_.pdf', '_blank', 'noopener');
 });
 
-const frenchDescription = document.querySelector('meta[name="description"]').content;
+const pageDescriptions = {
+  fr: 'Roulem Baitiche, étudiant ingénieur à l’ESAIP. Cybersécurité, DevOps et Cloud : expériences, projets et parcours international.',
+  en: 'Roulem Baitiche, engineering student at ESAIP. Cybersecurity, DevOps and Cloud: experience, projects and an international background.'
+};
 function setLanguage(next) {
   language = next;
   root.lang = language;
@@ -304,7 +305,7 @@ function setLanguage(next) {
   cvPreviewImage.alt = language === 'fr' ? 'Aperçu de la première page du CV de Roulem Baitiche' : 'Preview of the first page of Roulem Baitiche’s resume';
   document.title = `Roulem Baitiche — ${language === 'fr' ? 'Cybersécurité' : 'Cybersecurity'}, DevOps & Cloud`;
   document.querySelector('meta[property="og:title"]').content = document.title;
-  document.querySelector('meta[name="description"]').content = language === 'fr' ? frenchDescription : 'Roulem Baitiche, engineering student at ESAIP. Cybersecurity, DevOps and Cloud: experience, projects and an international background.';
+  document.querySelector('meta[name="description"]').content = pageDescriptions[language];
   document.querySelector('meta[property="og:description"]').content = document.querySelector('meta[name="description"]').content;
   closeMenu();
   if (currentProject) populateProject(currentProject);
@@ -312,6 +313,6 @@ function setLanguage(next) {
   requestRender();
 }
 languageButton.addEventListener('click', () => setLanguage(language === 'fr' ? 'en' : 'fr'));
-try { language = localStorage.getItem('roulem-language') === 'en' ? 'en' : 'fr'; } catch { /* French remains the default. */ }
+try { language = localStorage.getItem('roulem-language') === 'fr' ? 'fr' : 'en'; } catch { /* English remains the default. */ }
 document.querySelector('#year').textContent = new Date().getFullYear();
 setLanguage(language);
