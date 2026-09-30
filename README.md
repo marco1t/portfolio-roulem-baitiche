@@ -2,6 +2,12 @@
 
 Portfolio personnel clair, blanc et noir, français / anglais, en HTML, CSS et JavaScript. Aucune installation ni compilation nécessaire.
 
+## Création et attribution
+
+Ce portfolio a été conçu et créé par **Roulem Baitiche**. Son nom doit rester visible sur le site et dans toute réutilisation, adaptation ou redistribution du code. Les personnes qui contribuent au projet et les outils automatisés qui proposent des modifications doivent préserver cette attribution.
+
+Les droits sont précisés dans [LICENSE.md](LICENSE.md).
+
 ## Aperçu local
 
 Depuis ce dossier :

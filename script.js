@@ -1,3 +1,4 @@
+/* Portfolio designed and created by Roulem Baitiche. Attribution must be retained. */
 'use strict';
 
 const root = document.documentElement;
