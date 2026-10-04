@@ -10,6 +10,7 @@ const cvDialog = document.querySelector('#cv-dialog');
 const cvOpenButtons = [...document.querySelectorAll('[data-cv-open]')];
 const cvPreviewImage = document.querySelector('#cv-preview-image');
 const cvFullscreen = document.querySelector('#cv-fullscreen');
+const cvDownload = document.querySelector('#cv-download');
 const navLinks = [...document.querySelectorAll('.nav-link')];
 const sections = [...document.querySelectorAll('main section[data-label]')];
 const timeline = document.querySelector('[data-timeline]');
@@ -277,8 +278,28 @@ document.addEventListener('keydown', event => {
   if (cvDialog.hasAttribute('open')) closeModal(cvDialog);
   if (dialog.hasAttribute('open')) closeModal(dialog);
 });
+const resumes = {
+  fr: {
+    file: 'assets/CV_Roulem_Baitiche_FR.pdf',
+    preview: 'assets/cv-preview-fr.png',
+    alt: 'Aperçu de la première page du CV de Roulem Baitiche'
+  },
+  en: {
+    file: 'assets/CV_Roulem_Baitiche_EN.pdf',
+    preview: 'assets/cv-preview-en.png',
+    alt: 'Preview of the first page of Roulem Baitiche’s resume'
+  }
+};
+
+function updateResume() {
+  const resume = resumes[language];
+  cvPreviewImage.src = resume.preview;
+  cvPreviewImage.alt = resume.alt;
+  cvDownload.href = resume.file;
+}
+
 cvFullscreen.addEventListener('click', () => {
-  window.open('assets/CV_BAITICHE_Roulem_.pdf', '_blank', 'noopener');
+  window.open(resumes[language].file, '_blank', 'noopener');
 });
 
 const pageDescriptions = {
@@ -303,7 +324,7 @@ function setLanguage(next) {
   document.querySelector('.dialog-close').setAttribute('aria-label', language === 'fr' ? 'Fermer le projet' : 'Close project');
   document.querySelectorAll('.home-link').forEach(link => link.setAttribute('aria-label', language === 'fr' ? 'Accueil' : 'Home'));
   document.querySelector('#cv-close').setAttribute('aria-label', language === 'fr' ? 'Fermer l’aperçu du CV' : 'Close resume preview');
-  cvPreviewImage.alt = language === 'fr' ? 'Aperçu de la première page du CV de Roulem Baitiche' : 'Preview of the first page of Roulem Baitiche’s resume';
+  updateResume();
   document.title = `Roulem Baitiche — ${language === 'fr' ? 'Cybersécurité' : 'Cybersecurity'}, DevOps & Cloud`;
   document.querySelector('meta[property="og:title"]').content = document.title;
   document.querySelector('meta[name="description"]').content = pageDescriptions[language];
